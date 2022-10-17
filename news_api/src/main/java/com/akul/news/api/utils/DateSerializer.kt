@@ -12,12 +12,12 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Serializer(forClass = Date::class)
-object DateSerializer: KSerializer<Date> {
+internal object DateSerializer: KSerializer<Date> {
     @SuppressLint("SimpleDateFormat")
     private val df: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ ")
 
     override fun deserialize(decoder: Decoder): Date {
-        return df.parse(decoder.decodeString())//todo  heck on npe
+        return df.parse(decoder.decodeString())
     }
 
     override fun serialize(encoder: Encoder, value: Date) {
