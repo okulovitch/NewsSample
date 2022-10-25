@@ -11,7 +11,7 @@ import retrofit2.http.GET
 interface NewsService {
 
     @GET("/v2/top-headlines")
-    fun topHeadLines(): Articles
+    suspend fun topHeadLines(): Articles
 }
 
 fun NewsService(apiKey: String): NewsService {
