@@ -2,6 +2,7 @@ package com.akul.news.di
 
 import android.app.Application
 import com.akul.news.api.NewsService
+import com.akul.news.details.NewsDetailsDeps
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
@@ -10,7 +11,10 @@ import javax.inject.Qualifier
 import javax.inject.Scope
 
 @[AppScope Component(modules = [AppModule::class])]
-interface AppComponent {
+interface AppComponent: NewsDetailsDeps {
+
+    override val newsService: NewsService
+        get() = TODO("Not yet implemented")
 
     @Component.Builder
     interface Builder {

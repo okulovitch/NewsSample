@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.akul.news.api.data.Article
 import com.akul.news.details.databinding.FragmentArticlesBinding
+import com.akul.news.details.databinding.ItemArticleBinding
 
 class ArticleAdapter() : ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleItemCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
-            FragmentArticlesBinding.inflate(
+            ItemArticleBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -24,15 +25,16 @@ class ArticleAdapter() : ListAdapter<Article, ArticleAdapter.ViewHolder>(Article
 
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ArticleAdapter.ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class ViewHolder(binding: FragmentArticlesBinding) :
+    inner class ViewHolder(private val binding: ItemArticleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(article: Article) {
-
+            binding.content.text = article.content
+            binding.title.text = article.title
         }
     }
 }

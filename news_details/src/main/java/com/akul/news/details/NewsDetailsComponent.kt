@@ -1,5 +1,7 @@
 package com.akul.news.details
 
+import android.app.Application
+import android.content.Context
 import com.akul.news.api.NewsService
 import dagger.Component
 import dagger.Module
@@ -10,6 +12,7 @@ import javax.inject.Scope
     modules = [NewsDetailsModule::class]
 )]
 interface NewsDetailsComponent {
+    fun inject(fragment: ArticlesFragment)
 
     @Component.Builder
     interface Builder {
@@ -25,9 +28,21 @@ internal class NewsDetailsModule {
 
 }
 
+interface NewsDetailsDepsProvider {
+
+    val deps: NewsDetailsDeps
+}
+
 interface NewsDetailsDeps {
     val newsService: NewsService
 }
 
+val Context.newsDetailsDepsProvider: NewsDetailsDepsProvider
+    get() = when (this) {
+        is NewsDetailsDepsProvider -> this
+        is Application -> error("Application must implements NewsDetailsDepsProvider")
+        else -> applicationContext.newsDetailsDepsProvider
+    }
+
 @Scope
-annotation class NewsDetailsScope
+internal annotation class NewsDetailsScope

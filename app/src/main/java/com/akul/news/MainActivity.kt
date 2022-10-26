@@ -1,16 +1,25 @@
 package com.akul.news
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import com.akul.news.databinding.ActivityMainBinding
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
+import com.akul.news.details.ArticlesFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val fragmentManager = supportFragmentManager
+
+        if (fragmentManager.findFragmentById(R.id.fragment_container) == null)
+            fragmentManager.commit {
+                add<ArticlesFragment>(R.id.fragment_container)
+            }
+    }
+
+
+    private companion object {
+        private const val FRAGMENT_ARTICLES = "articles"
+    }
 }
